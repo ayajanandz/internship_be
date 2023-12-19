@@ -5,6 +5,7 @@ const { verifyToken } = require('../mongo/Auth/Verifytoken');
 const { getData } = require('./Frauds/Frauds')
 const { newPayment } = require('./Payments/Payments');
 const { registerfraud} = require('./Frauds/RegisterFraud');
+const { generateOtp } = require('./Auth/OtpVerification');
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -33,6 +34,11 @@ app.post("/login", async(req, res) => {
   app.get('/data', verifyToken, async(req, res)=>{
     let fraudlist = await getData(req);
     res.send(fraudlist)
+  })
+
+  app.get('/otpVerification', verifyToken, async(req, res) => {
+    let otp = await generateOtp(res);
+    res.status(200).json({ body:otp });
   })
 
   app.post('/newpayment', verifyToken, async(req, res) =>{
