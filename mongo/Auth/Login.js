@@ -25,7 +25,7 @@ if (dbResponse) {
     const token = jwt.sign({ email: userWithoutPassword.Email }, KEY, {
       expiresIn: "1h", // Token expiration time
     });
-    console.log(token)
+     console.log(token)
      const id = dbResponse._id;
     // Returning the JWT token to the frontend
     res.status(200).json({ token, body: userWithoutPassword });
